@@ -1,0 +1,1 @@
+/opt/conda/bin/python train.py --bootstrap True --bootstrap_features False --max_depth 10 --max_features 0.2 --max_leaves -1 --n_bins 8 --n_estimators 20 --split_algo 0 --split_criterion 0
