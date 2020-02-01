@@ -30,11 +30,11 @@ def main(args):
     # SageMaker options
     model_dir       = args.model_dir
     data_dir        = args.data_dir
-    
+        
     col_names = ['label'] + ["col-{}".format(i) for i in range(2, 30)] # Assign column names
     dtypes_ls = ['int32'] + ['float32' for _ in range(2, 30)] # Assign dtypes to each column
     data = cudf.read_csv(data_dir+'HIGGS.csv', names=col_names, dtype=dtypes_ls)
-
+    
     X_train, X_test, y_train, y_test = train_test_split(data, 'label', train_size=0.70)
 
     cu_rf = cuRF(**hyperparams)
@@ -48,7 +48,7 @@ if __name__ == "__main__":
     
     # Hyper-parameters
     parser.add_argument('--n_estimators',        type=int,   default=20)
-    parser.add_argument('--max_depth',           type=int,   default=10)
+    parser.add_argument('--max_depth',           type=int,   default=16)
     parser.add_argument('--n_bins',              type=int,   default=8)
     parser.add_argument('--split_criterion',     type=int,   default=0)
     parser.add_argument('--split_algo',          type=int,   default=0)
@@ -61,7 +61,6 @@ if __name__ == "__main__":
     parser.add_argument('--model_dir',        type=str)
     parser.add_argument('--model_output_dir', type=str,   default='/opt/ml/output/')
     parser.add_argument('--data_dir',         type=str,   default='/opt/ml/input/data/dataset/')
-    parser.add_argument('train',        type=str)
     
     args = parser.parse_args()
     main(args)
